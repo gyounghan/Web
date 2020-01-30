@@ -1,0 +1,15 @@
+
+{% block container %}
+
+<h1>회원 가입</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    ID : <input type="text" name="username"/> </br>
+    PW : <input type="text" name="password"/> </br>
+    PW_CONFIG : <input type="text" name="password2"/> </br>
+    
+    <input type="submit" name="Submit"/>
+</form>
+
+{% endblock %}
