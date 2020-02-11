@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from django.contrib import messages
-from .forms import UserForm
+from .forms import UserForm, LoginForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
@@ -11,6 +11,7 @@ from django.contrib.auth import login, authenticate
 def hello(request):
     
     return render(request, 'home.html')
+
 
 def signup(request):
     
@@ -35,3 +36,31 @@ def signup(request):
         form = UserForm()
     
         return render(request, 'signup.html', {'form': form})
+
+
+def signin(request):
+
+    if request.method == "POST":
+
+        form = LoginForm(request.POST)
+
+        username = request.POST['username']
+
+        password = request.POST['password']
+
+        user = authenticate(username = username, password = password)
+       
+        if user is not None :
+
+            login(request, new_user)
+
+            return redirect('home')
+
+        else:
+
+            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+    else:
+
+        form = LoginForm()
+        
+        return render(request, 'signin.html', {'form': form})    

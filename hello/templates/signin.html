@@ -1,13 +1,12 @@
-
 {% block container %}
 
-<h1>회원 가입</h1>
+<h1>로그인</h1>
 
-<form method="POST" action="" class="sign-up-form">
+<form method="POST" action="" class="sign-in-form">
  
     {%csrf_token%}
  
-    <h2 class="sub-title"> 회원가입 </h2>
+    <h2 class="sub-title"> 로그인 </h2>
  
     {% for field in form %}
  
