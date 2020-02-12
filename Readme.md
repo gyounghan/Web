@@ -42,4 +42,10 @@ $ python manage.py shell
 >>> user = User.objects.create_user(username = 'test1', email = 'na@na.com', password = '1234')
 >>> User.objects.all() # 전체 User 리스트 확인
 
+## 회원가입
+1) forms.py 생성
+회원 가입 form 작성
+
+2) reverse_lazy('[URL_NAME]')
+회원 가입 성공 시 redirection할 url의 name을 넣어줘야 함
 
