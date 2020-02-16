@@ -2,6 +2,12 @@
 
 <h1>로그인</h1>
 
+{% if user.is_active %}
+<h2> Welcome, {{user.username}} </h2>
+<a href="{% url 'logout' %}">로그아웃</a>
+
+
+{% else %}
 <form method="POST" action="" class="sign-in-form">
  
     {%csrf_token%}
@@ -29,5 +35,5 @@
     </a>
 
 </form>
-
+{% endif %}
 {% endblock %}

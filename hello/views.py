@@ -6,7 +6,7 @@ from .forms import UserForm, LoginForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
-
+from django.contrib import auth
 # Create your views here.
 def hello(request):
     
@@ -52,7 +52,7 @@ def signin(request):
        
         if user is not None :
 
-            login(request, new_user)
+            login(request, user)
 
             return redirect('home')
 
@@ -63,4 +63,10 @@ def signin(request):
 
         form = LoginForm()
         
-        return render(request, 'signin.html', {'form': form})    
+        return render(request, 'signin.html', {'form': form})
+
+def logout(request):
+
+    auth.logout(request)
+
+    return redirect('home')
