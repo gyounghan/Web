@@ -1,4 +1,6 @@
 ## HOME 화면
+0) /home : hello ~ 문구 출력 페이지
+
 
 1) 모든 호스트 접속 허가
 [PRJ_HOME]/settings.py 수정 
@@ -9,6 +11,8 @@ $ python manage.py startapp [APP_NAME]
 
 
 ## 로그인/로그아웃
+0) /accounts/login : 로그인 화면 
+
 
 1) django 기본 auth 기능 가져오기
 [PRJ_HOME]/urls.py 수정
@@ -43,9 +47,30 @@ $ python manage.py shell
 >>> User.objects.all() # 전체 User 리스트 확인
 
 ## 회원가입
+0) /home/signup : 회원가입 화면 
+
 1) forms.py 생성
 회원 가입 form 작성
 
 2) reverse_lazy('[URL_NAME]')
 회원 가입 성공 시 redirection할 url의 name을 넣어줘야 함
+
+
+## 사진 업로드
+0) /admin : admin 페이지 UI로 사진 업로드 가능
+
+1) settings.py 에 MEDIA_URL, MEDIA_ROOT 설정
+MEDIA_URL = '/picutres/' -> 사진 파일 업로드 URL
+MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures') -> 실제 사진을 저장할 디렉토리
+
+2) project의 urls.py 에 MEDIA_URL 반영
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+3) models.py 작성
+
+4) migration
+$ python manage.py makemigrations
+$ python manage.py migrate
+
+
 

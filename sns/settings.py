@@ -122,3 +122,9 @@ STATIC_URL = '/static/'
 
 # login 성공 시 redirection - eyoh
 LOGIN_REDIRECT_URL = '/home/'
+
+
+# 사진 파일 업로드 URL
+MEDIA_URL = '/picutres/'
+# 업로드 된 파일을 저장할 로컬 위치
+MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')

@@ -15,3 +15,4 @@ class CreateUserForm(UserCreationForm): # 내장 회원가입 폼을 상속받�
         if commit:
             user.save()
         return user
+
