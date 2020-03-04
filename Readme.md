@@ -73,4 +73,9 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 
 
+## 게시글 업로드
+0) /home/upload : 게시글 입력 받고 업로드 가능  
 
+1) views.py 수정  
+request가 GET 일때; 게시글 form 입력 받기.   
+request가 POST 일 때; 게시글 form 유효성 검사 후 업로드. 
