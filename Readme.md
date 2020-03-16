@@ -66,7 +66,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures') -> 실제 사진을 저장할 �
 2) project의 urls.py 에 MEDIA_URL 반영
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
-3) models.py 작성
+3) models.py 작성  
+Photo Model 만듦
+
+3') admin.py 에 모델 추가  
+admin.site.register(Photo)
 
 4) migration
 $ python manage.py makemigrations

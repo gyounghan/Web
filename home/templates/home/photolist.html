@@ -6,6 +6,7 @@
         <tr>
             <td><B>사진</B></td>
             <td><B>내용</B></td>
+            <td><B>댓글</B></td>
         </tr>
         </thead>
         <tbody>
@@ -15,6 +16,11 @@
             <td><img src="{{photo.image.url}}", width=100></td>
             {% endif %}
             <td>{{photo.content}}</td>
+            <td>
+                {% for comment in photo.comments.all %}
+                <B>{{comment.author}}</B> {{comment.text}} <i>{{comment.created_date}}</i></br>
+                {% endfor %}
+            </td>
         </tr>
         {% endfor %}
         <tbody>
