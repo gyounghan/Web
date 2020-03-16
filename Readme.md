@@ -92,4 +92,12 @@ Photo.objects.all() 함수로 DB에 있는 Photo 모델 다 불러옴.
 ctx로 template HTML에 전달    
 2) HTML 작성   
 {% 코드구문 %} 넣으면 HTMl안에서 코드 실행  
-ctx로 넘겨준 변수명을 HTML에서 사용가능   
+ctx로 넘겨준 변수명을 HTML에서 사용가능  
+
+
+## 댓글
+0) /home/photos : 게시글 목록 출력에 댓글 칼럼 추가함.   
+1) models.py 수정   
+Comment 모델 -> ForeginKey로 Photo 모델과 1:N 관계형 모델 만듦  
+2) HTML 작성 
+{% comment in photo.comments.all %} 로 photo객체와 관계된 N개 comment 루프 돔.
