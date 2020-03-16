@@ -79,3 +79,13 @@ $ python manage.py migrate
 1) views.py 수정  
 request가 GET 일때; 게시글 form 입력 받기.   
 request가 POST 일 때; 게시글 form 유효성 검사 후 업로드. 
+
+
+## 게시글 목록
+0) /home/photos : DB에 저장된 게시글 목록 출력  
+1) views.py 수정   
+Photo.objects.all() 함수로 DB에 있는 Photo 모델 다 불러옴.   
+ctx로 template HTML에 전달    
+2) HTML 작성   
+{% 코드구문 %} 넣으면 HTMl안에서 코드 실행  
+ctx로 넘겨준 변수명을 HTML에서 사용가능   

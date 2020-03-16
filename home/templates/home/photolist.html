@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<body>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td><B>사진</B></td>
+            <td><B>내용</B></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for photo in photos %}
+        <tr>
+            {% if photo.image %}
+            <td><img src="{{photo.image.url}}", width=100></td>
+            {% endif %}
+            <td>{{photo.content}}</td>
+        </tr>
+        {% endfor %}
+        <tbody>
+    </table>
+</body>
+
+
+
