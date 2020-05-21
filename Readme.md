@@ -1,3 +1,6 @@
+## virtual env 들어가기  
+$ workon
+
 ## HOME 화면
 0) /home : hello ~ 문구 출력 페이지
 
