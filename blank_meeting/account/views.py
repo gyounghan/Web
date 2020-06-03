@@ -15,8 +15,8 @@ from django.utils.encoding import force_bytes, force_text
 from .tokens import account_activation_token
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, world, You're at the account index.")
-
+#    return HttpResponse("Hello, world, You're at the account index.")
+    return render(request, 'account/index.html')
 
 # 로그인 함수
 def signin(request):

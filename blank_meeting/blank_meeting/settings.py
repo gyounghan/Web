@@ -119,6 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+) ## static DIR 추가 - 오은영 
 
 EMAIL_HOST = 'smtp.gmail.com' 		 # 메일 호스트 서버
 EMAIL_PORT = '587' 			 # 서버 포트
