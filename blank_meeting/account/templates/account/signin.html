@@ -1,0 +1,17 @@
+{% block container %}
+<h1>Sign In!</h1>
+
+<form method="POST" action="{% url 'signin'%}">
+    {% csrf_token %}
+
+    Username:
+    <br>
+    <input name="username" type="username" value="">
+    <br>
+    Password:
+    <br>
+    <input name="password" type="password" value="">
+    <br>
+    <input class="btn btn-primary" type="submit" value="Sign In!">
+</form>
+{% endblock %}
