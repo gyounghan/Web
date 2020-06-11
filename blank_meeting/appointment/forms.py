@@ -1,4 +1,4 @@
-django import forms
+from django import forms
 
-class SearchForm(forms):
-     word = forms.Charfield(label='Search Word')
+class SearchForm(forms.ModelForm):
+     word = forms.CharField(label='Search Word')
