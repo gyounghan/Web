@@ -42,3 +42,13 @@ class SearchFormView():
         # 검색어를 컨텍스트 변수에 담는다. 
         
         return context
+
+def RemoveFormView():
+    appointment = Appointment.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        if request.POST['password'] == appointment.password :
+            appointment.delete()
+            return redirect('/')
+
+    return render(request, 'remove.html', {'feed': article})

@@ -5,3 +5,5 @@ from django.db import models
 
 class Appointment(models.Model):
     content = models.TextField(max_length=1000, null=True, blank=True)
+    password = models.TextField(max_length=1000, null=False, blank=False)
+    
