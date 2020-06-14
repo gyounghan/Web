@@ -6,3 +6,6 @@ class CreateAppointment(forms.ModelForm):
     class Meta: 
         model = Appointment
         fields=('content',)
+
+class SearchForm(forms.ModelForm):
+     word = forms.CharField(label='Search Word')
