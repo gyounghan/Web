@@ -7,3 +7,6 @@ class CreateAppointment(forms.ModelForm):
         model = Appointment
         fields=('title', 'content',)
         exclude=('publisher',)
+
+class SearchForm(forms.ModelForm):
+     word = forms.CharField(label='Search Word')
