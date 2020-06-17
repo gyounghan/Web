@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import CreateAppointment
 from .models import Appointment
 
@@ -12,13 +12,41 @@ def Create(request):
         form = CreateAppointment()
     ## 소개팅 게시글 업로드 요청 
     elif request.method == "POST":
-        form = CreateAppointment(request.POST, request.FILES)
+        form = CreateAppointment(request.POST, request.FILES, initial={'publisher':request.user})
 
         if form.is_valid():
-            obj = form.save()
+            obj = form.save(commit=False)
+            obj.publisher = request.user
+            obj.save()
             return HttpResponse("Appointment 등록완료")
 
     ctx = {
         'form' : form,
     }
     return render(request, 'create.html', ctx)
+
+
+#def List(request):
+
+
+
+## 특정 게시물 상세조회
+# pk : 모델 마다 자동으로 생성해준 ID 번호, primary key
+def Detail(request, pk):
+    appointment=get_object_or_404(Appointment, pk=pk)
+    return render(request, 'detail.html', {'appointment': appointment})
+
+
+## 특정 게시물 삭제
+def Delete(request, pk):
+    appointment = get_object_or_404(Appointment, pk=pk)
+    appointment.delete()
+    return HttpResponse("Appointment 삭제 완료") 
+
+
+## 특정 게시물에 만남 신청
+def Apply(request, pk):
+    appointment = get_object_or_404(Appointment, pk=pk)
+
+    ## 게시물 작성자/만남신청자 한테 알림 메시지 보내는 로직 필요
+    return HttpResponse("만남신청완료")

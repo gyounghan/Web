@@ -5,4 +5,5 @@ from .models import Appointment
 class CreateAppointment(forms.ModelForm):
     class Meta: 
         model = Appointment
-        fields=('content',)
+        fields=('title', 'content',)
+        exclude=('publisher',)
