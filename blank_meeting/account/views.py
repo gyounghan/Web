@@ -21,14 +21,18 @@ def index(request):
 # 로그인 함수
 def signin(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = User.objects.get(username=username)
-        if user.check_password(password):
-            login(request, user)
-            return redirect('index')
-        else:
-            return HttpResponse('로그인 실패. 다시 시도 해보세요.') 
+        try :
+            username = request.POST['username']
+            password = request.POST['password']
+        
+            user = User.objects.get(username=username)
+            if user.check_password(password):
+                login(request, user)
+                return redirect('index')
+            else:
+                return render(request, 'account/signin_fail.html') 
+        except:
+            return render(request, 'account/signin_fail.html') 
         #user = authenticate(request, username = username, password = password)
         #if user is not None:
         #    login(request, user)
