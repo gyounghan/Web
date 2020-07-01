@@ -10,3 +10,5 @@ class Appointment(models.Model):
     publisher = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.TextField(max_length=100, null=True, blank=True)
     content = models.TextField(max_length=1000, null=True, blank=True)
+    password = models.TextField(max_length=1000, null=False, blank=False)
+    
