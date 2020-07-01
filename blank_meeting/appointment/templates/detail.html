@@ -1,0 +1,13 @@
+{% block content %}
+    <div class="appointment">
+        <h1>Title: {{ appointment.title }}</h1>
+        <p>만남주최자: {{ appointment.publisher.username }}</p>
+        <p>내용 : {{ appointment.content|linebreaksbr }}</p>
+        <a href="{% url 'delete' pk=appointment.id  %}">
+          <button name="deletebutton"> 삭제 </button>
+        </a>
+	<a href="{% url 'apply' pk=appointment.id %}">
+          <button name="apply"> 만남신청 </button>
+	</a>
+    </div>
+{% endblock %}
