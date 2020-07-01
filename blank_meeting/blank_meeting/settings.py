@@ -123,6 +123,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 ) ## static DIR 추가 - 오은영 
 
+
 EMAIL_HOST = 'smtp.gmail.com' 		 # 메일 호스트 서버
 EMAIL_PORT = '587' 			 # 서버 포트
 EMAIL_HOST_USER = '5equals0@gmail.com' 	 # 우리가 사용할 Gmail
