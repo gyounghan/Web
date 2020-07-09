@@ -1,7 +1,10 @@
 {% block content %}
     <div class="appointment">
         <h1>Title: {{ appointment.title }}</h1>
+        <p>글발행일: {{ appointment.created_date }}</p>
         <p>만남주최자: {{ appointment.publisher.username }}</p>
+        <p>소개팅장소: {{ appointment.place }}</p>
+        <p>만남시간: {{ appointment.time }}</p>
         <p>내용 : {{ appointment.content|linebreaksbr }}</p>
         <a href="{% url 'delete' pk=appointment.id  %}">
           <button name="deletebutton"> 삭제 </button>

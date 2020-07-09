@@ -25,7 +25,6 @@ def Create(request):
     }
     return render(request, 'create.html', ctx)
 
-<<<<<<< HEAD
 
 #def List(request):
 
@@ -51,7 +50,8 @@ def Apply(request, pk):
 
     ## 게시물 작성자/만남신청자 한테 알림 메시지 보내는 로직 필요
     return HttpResponse("만남신청완료")
-=======
+
+
 class SearchFormView():
     form_class = SearchForm 
     template_name = 'search.html' 
@@ -71,4 +71,3 @@ class SearchFormView():
         # 검색어를 컨텍스트 변수에 담는다. 
         
         return context
->>>>>>> 6211a2863860b3f13821417ef125371e82f5765b
