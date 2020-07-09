@@ -3,8 +3,11 @@ from django.shortcuts import render, get_object_or_404
 from .forms import CreateAppointment, SearchForm
 from .models import Appointment
 from django.views.generic.edit import FormView
+from django.db.models import Q
 # Create your views here.
 
+def Home(request):
+    return render(request, 'index.html')
 
 def Create(request):
     ## 소개팅 게시글 생성
@@ -28,8 +31,6 @@ def Create(request):
 
 #def List(request):
 
-
-
 ## 특정 게시물 상세조회
 # pk : 모델 마다 자동으로 생성해준 ID 번호, primary key
 def Detail(request, pk):
@@ -51,26 +52,29 @@ def Apply(request, pk):
     ## 게시물 작성자/만남신청자 한테 알림 메시지 보내는 로직 필요
     return HttpResponse("만남신청완료")
 
-
-class SearchFormView():
-    form_class = SearchForm 
-    template_name = 'search.html' 
+def SearchFormView(request): 
+    # post method로 값이 전달 됬을 경우 
+    word = request.POST.get('q', " ") 
+    # 검색어 
+    if word:
+        appointment = Appointment.objects.filter( Q(title__icontains=word) | Q(content__icontains=word)).distinct()
+        # appointment = Appointment.objects.all()
+        return render(request, 'index.html', {'blogs' : appointment, 'q' : word})
     
-    def form_valid(self, form): 
-        # post method로 값이 전달 됬을 경우 
-        word = '%s' %self.request.POST['word'] 
-        # 검색어 
-        post_list = Appointment.objects.filter( Q(title__icontains=word) | Q(content__icontains=word) 
-        # Q 객체를 사용해서 검색한다. 
-        # title,context 칼럼에 대소문자를 구분하지 않고 단어가 포함되어있는지 (icontains) 검사 
-        ).distinct() #중복을 제거한다. 
-        context = {}
-        context['object_list'] = post_list 
-        # 검색된 결과를 컨텍스트 변수에 담는다. 
-        context['search_word']= word 
-        # 검색어를 컨텍스트 변수에 담는다. 
-        
-        return context
+    else:
+        return render(request, 'index.html')
+
+    # post_list = Appointment.objects.filter( Q(title__icontains=word) | Q(content__icontains=word)).distinct()
+    # # Q 객체를 사용해서 검색한다. 
+    # # title,context 칼럼에 대소문자를 구분하지 않고 단어가 포함되어있는지 (icontains) 검사 
+    # #중복을 제거한다. 
+    # context = {}
+    # context['object_list'] = post_list 
+    # # 검색된 결과를 컨텍스트 변수에 담는다. 
+    # context['search_word']= word 
+    # 검색어를 컨텍스트 변수에 담는다. 
+     
+    # return context
 
 def RemoveFormView():
     appointment = Appointment.objects.get(pk=pk)
