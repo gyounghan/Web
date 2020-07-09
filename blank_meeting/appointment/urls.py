@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:pk>/apply/', views.Apply, name='apply'), #특정 게시물에 만남신청
     path('post/search', views.SearchFormView, name='SearchFormView'),
     path('ppst/remove', views.RemoveFormView, name='RemoveFormView'),
+
 ]
