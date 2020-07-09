@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 class Review(models.Model):
@@ -10,4 +10,4 @@ class Review(models.Model):
     title = models.TextField(max_length=100, null=True, blank=True)
     content = models.TextField(max_length=1000, null=True, blank=True)
     password = models.TextField(max_length=1000, null=False, blank=False)
-    score = models.IntegerField(min_value=0, max_value=5)    
+    score = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)],null=True)
