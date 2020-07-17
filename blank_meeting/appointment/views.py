@@ -34,7 +34,7 @@ def Create(request):
 # pk : 모델 마다 자동으로 생성해준 ID 번호, primary key
 def Detail(request, pk):
     appointment=get_object_or_404(Appointment, pk=pk)
-    return render(request, 'detail.html', {'appointment': appointment})
+    return render(request, 'detail2.html', {'appointment': appointment})
 
 
 ## 특정 게시물 삭제
