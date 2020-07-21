@@ -7,8 +7,12 @@ from django.db.models import Q
 # Create your views here.
 
 def Home(request):
-    return render(request, 'index.html')
-
+ 
+    appointment = Appointment.objects.all()
+    # appointment = Appointment.objects.all()
+    return render(request, 'index.html', {'blogs' : appointment})
+    
+ 
 def Create(request):
     ## 소개팅 게시글 생성
     if request.method == "GET":
