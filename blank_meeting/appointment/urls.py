@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = [
+    path('', views.Home, name='home'),
     path('create/', views.Create, name='create'),
     path('<int:pk>/', views.Detail, name='detail'), #특정 게시물 자세히보기
     path('<int:pk>/delete/', views.Delete, name='delete'), #특정 게시물 삭제
