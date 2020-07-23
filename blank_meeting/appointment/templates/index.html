@@ -90,8 +90,8 @@
 <div class="col-md-3">
     <div class="card" style="width:100%;left:50%;margin-left:-50%;">
       <img class="card-img-top" style="width:100%" src='{% static "img/men.jpg" %}'>
-        <div class="card-body">
-            <h1 clas="card-title">{{ blog.title }}</h1>
+        <div class="card-body" style="height: 30%;">
+            <h5 clas="card-title">{{ blog.title }}</h1>
             <p class="card-test">{{ blog.pub_date | date:"Y-m-d" }}</p>
             <button type="button" class="btn btn-dark" onclick="location.href = '{% url 'detail' blog.id %}'">알아보기</button>
         </div>
