@@ -13,3 +13,4 @@ class Appointment(models.Model):
     content = models.TextField(max_length=1000, null=True, blank=True)
     place = models.TextField(max_length=100, null=True) # 소개팅 장소
     time = models.DateTimeField(null=True) # 소개팅 시간
+
