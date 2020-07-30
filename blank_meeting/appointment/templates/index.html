@@ -67,75 +67,95 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'home' %}">Appointment</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Review</a>
-                            </li>
-                        </ul>
-                    </div>
+                                <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Review</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </nav>
+    </header>
 
-        <!-- Marketing messaging and featurettes
-        ================================================== -->
-        <!-- Wrap the rest of the page in another container to center all the content.
-        -->
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content.
+    -->
 
-        <div style="width:auto;height:70px;">
+    <div class="container" style="padding-bottom:2%">
+        <div class="row" style="position:relative;padding-top:4%;">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <form
+                    class="form-inline mt-2 mt-md-0"
+                    action="{% url 'SearchFormView' %}"
+                    method="post">
+                    {% csrf_token %}
+                    <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Search"
+                        aria-label="Search"
+                        name="q"
+                        value="{{q}}"
+                        style="width:60%;font-size: 1vw;">
+                    <button type="submit" class="btn btn-dark" style="width:25%;font-size: 1vw;">Search</button>
+                </form>
+                <!-- Three columns of text below the carousel -->
 
-            <!-- Three columns of text below the carousel -->
-
-            <!-- START THE FEATURETTES -->
-
+                <!-- START THE FEATURETTES -->
+            </div>
         </div>
-        <div class="container">
-            {% if not blogs %}
-
-                <h1>검색 결과가 없습니다</h1>
-
-            {% else %}
-                <div class="row">
-
-                    {% for blog in blogs.all %}
-                        <div class="col-md-4" style="overflow: hidden;">
-                            <div class="card">
-                                <img class="card-img-top" src="{% static 'img/men.jpg' %}">
-                                <div class="card-body">
-                                    <h5 clas="card-title">{{ blog.title }}</h1>
-                                    <p class="card-test">{{ blog.pub_date | date:"Y-m-d" }}</p>
-                                    <button
-                                        type="button"
-                                        class="btn btn-dark"
-                                        onclick="location.href = '{% url 'detail' blog.id %}'">알아보기</button>
-                                </div>
-                            </div>
-                            <br>
-                        </div>
-
-                    {% endfor %}
-
-                </div>
-            {% endif %}
-
-        </div>
-        <!-- /.container -->
     </div>
-    <!-- FOOTER -->
+    <div class="container" >
+        {% if not blogs %}
 
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-    <script
-        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script>
-        window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')
-    </script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+            <h1>검색 결과가 없습니다</h1>
+
+        {% else %}
+            <div class="row">
+
+                {% for blog in blogs.all %}
+                    <div class="col-md-4" style="overflow: hidden;">
+                        <div class="card">
+                            <img class="card-img-top" src="{% static 'img/men.jpg' %}">
+                            <div class="card-body">
+
+                                <h5 clas="card-title">{{ blog.title }}</h1>
+                                <p class="card-test">{{ blog.pub_date | date:"Y-m-d" }}</p>
+                                <button
+                                    type="button"
+                                    class="btn btn-dark"
+                                    onclick="location.href = '{% url 'detail' blog.id %}'">알아보기</button>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        {% endif %}
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- FOOTER -->
+
+<footer class="py-5 bg-dark" style="position: absolute; width: 100%;">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div>
+    <!-- /.container -->
+</footer>
+<script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script>
+    window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')
+</script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
