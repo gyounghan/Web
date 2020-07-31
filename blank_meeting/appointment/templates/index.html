@@ -85,7 +85,12 @@
 
     <div class="container" style="padding-bottom:2%">
         <div class="row" style="position:relative;padding-top:4%;">
-            <div class="col-md-8"></div>
+            <div class="col-md-2">
+                <form action="{% url 'create' %}" method="GET">
+                    <button type="submit" class="btn btn-dark" style="width:25%;font-size: 1vw;">+</button>
+                </form>
+            </div>
+            <div class="col-md-6"></div>
             <div class="col-md-4">
                 <form
                     class="form-inline mt-2 mt-md-0"
@@ -108,7 +113,7 @@
             </div>
         </div>
     </div>
-    <div class="container" >
+    <div class="container">
         {% if not blogs %}
 
             <h1>검색 결과가 없습니다</h1>
