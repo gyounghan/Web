@@ -1,21 +1,26 @@
 from django import forms
 from .models import Appointment
 import datetime
-
+import pytz
 class CreateAppointment(forms.ModelForm):
     class Meta: 
-        renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
-
         model = Appointment
-        fields=('title', 'content', 'place', 'time',)
+        fields=('title', 'content', 'place', 'time')
         exclude=('publisher',)
+        widgets = {
+          'time': forms.DateInput(attrs={'type': 'date'})
+        }
+    
+    def clean_time(self):
+        time = self.cleaned_data.get('time')
         
-    date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
-    def clean_date(self):
-        date = self.cleaned_data['date']
-        if date < datetime.date.today():
+        now = datetime.datetime.now()
+        now = pytz.utc.localize(now)
+        print(str(time) + " date : " + str(now))
+
+        if time < now:
            raise forms.ValidationError("The date cannot be in the past!")
-        return date
+        return time
 
 class SearchForm(forms.ModelForm):
      word = forms.CharField(label='Search Word')
