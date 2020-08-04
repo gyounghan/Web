@@ -30,7 +30,7 @@ def Create(request):
     ctx = {
         'form' : form,
     }
-    return render(request, 'create.html', ctx)
+    return render(request, 'new.html', ctx)
 
 
 #def List(request):
