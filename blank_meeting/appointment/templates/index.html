@@ -84,38 +84,65 @@
     -->
 
     <div class="container" style="padding-bottom:2%">
-       
+        <div class="row" style="position:relative;padding-top:4%;">
+            <div class="col-md-2">
+                <form action="{% url 'create' %}" method="GET">
+                    <button type="submit" class="btn btn-dark" style="width:25%;font-size: 1vw;">+</button>
+                </form>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-4">
+                <form
+                    class="form-inline mt-2 mt-md-0"
+                    action="{% url 'SearchFormView' %}"
+                    method="post">
+                    {% csrf_token %}
+                    <input
+                        class="form-control mr-sm-2"
+                        type="text"
+                        placeholder="Search"
+                        aria-label="Search"
+                        name="q"
+                        value="{{q}}"
+                        style="width:60%;font-size: 1vw;">
+                    <button type="submit" class="btn btn-dark" style="width:25%;font-size: 1vw;">Search</button>
+                </form>
+                <!-- Three columns of text below the carousel -->
+
+                <!-- START THE FEATURETTES -->
+            </div>
+        </div>
     </div>
     <div class="container">
-        {% block content %}
-        <form
-            method="POST"
-            action=""
-            enctype="multipart/form-data"
-        >
-            {% csrf_token %}
-            {% for field in form %}
-            <div class ="form-group">
-                <label for = "{{ field.id_for_label }}">{{field.label}}</label>
-                
+        {% if not blogs %}
 
-                {% ifequal field.name 'content' %}
-                <textarea class = "form-control" style="height:50vh;" name = "{{ field.name }}" placeholder = "{{field.label}}"></textarea>
+            <h1>검색 결과가 없습니다</h1>
 
-                {% else %}
-                <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 
-                placeholder = "{{field.label}}" name = "{{field.name}}">
-                {% endifequal %}
-            
+        {% else %}
+            <div class="row">
+
+                {% for blog in blogs.all %}
+                    <div class="col-md-4" style="overflow: hidden;">
+                        <div class="card">
+                            <img class="card-img-top" src="{% static 'img/men.jpg' %}">
+                            <div class="card-body">
+
+                                <h5 clas="card-title">{{ blog.title }}</h1>
+                                <p class="card-test">{{ blog.pub_date | date:"Y-m-d" }}</p>
+                                <button
+                                    type="button"
+                                    class="btn btn-dark"
+                                    onclick="location.href = '{% url 'detail' blog.id %}'">알아보기</button>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                {% endfor %}
+
             </div>
-            {% endfor %}
-            <p>
-                <button type="submit">저장</button>
-            </p>
-        </form>
-        
-        {% endblock %}
-        
+        {% endif %}
+
     </div>
     <!-- /.container -->
 </div>
