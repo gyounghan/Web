@@ -4,15 +4,17 @@ from .forms import CreateAppointment, SearchForm
 from .models import Appointment
 from django.views.generic.edit import FormView
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='/account/signin')
 def Home(request):
  
     appointment = Appointment.objects.all()
     # appointment = Appointment.objects.all()
     return render(request, 'index.html', {'blogs' : appointment})
     
- 
+@login_required(login_url='/account/signin')
 def Create(request):
     ## 소개팅 게시글 생성
     if request.method == "GET":
@@ -55,7 +57,8 @@ def Apply(request, pk):
 
     ## 게시물 작성자/만남신청자 한테 알림 메시지 보내는 로직 필요
     return HttpResponse("만남신청완료")
-
+    
+@login_required(login_url='/account/signin')
 def SearchFormView(request): 
     # post method로 값이 전달 됬을 경우 
     word = request.POST.get('q', " ") 
