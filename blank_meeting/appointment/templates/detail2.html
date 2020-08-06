@@ -104,9 +104,14 @@
         <div class="card my-4">
           <h5 class="card-header">만남 신청하기!</h5>
           <div class="card-body">
-              <a href="{% url 'apply' pk=appointment.id  %}">
-                <button type="submit" class="btn btn-primary" name="applybutton"> 만남신청 </button>
-              </a>
+              <form method="POST" action="{% url 'apply' pk=appointment.id  %}">
+                  {% csrf_token %}
+
+                  <div class="form-group">
+                      <textarea name="message" class="form-control" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">만남신청</button>
+              </form>
           </div>
         </div>
 

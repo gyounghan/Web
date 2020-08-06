@@ -14,3 +14,10 @@ class Appointment(models.Model):
     place = models.TextField(max_length=100, null=True) # 소개팅 장소
     time = models.DateTimeField(null=True) # 소개팅 시간
 
+
+class Notification(models.Model):
+    sender = models.ForeignKey(User, related_name='%(class)s_noti_sender', on_delete=models.CASCADE, null=True)
+    receiver = models.ForeignKey(User, related_name='%(class)s_noti_receiver',on_delete=models.CASCADE, null=True)
+    sended_date = models.DateTimeField(auto_now_add=True, null=True)
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, null=True)
+    message = models.TextField(max_length=200, null=True) ## 짧은 메시지
