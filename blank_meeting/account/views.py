@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import HttpResponse
 
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 
 
 # SMTP 관련 인증
@@ -27,19 +27,15 @@ def signin(request):
         
             user = User.objects.get(username=username)
             if user.check_password(password):
+                if user.is_active == False:
+                    return render(request, 'account/signup.html')
                 login(request, user)
                 return redirect('index')
             else:
                 return render(request, 'account/signin_fail.html') 
         except:
             return render(request, 'account/signin_fail.html') 
-        #user = authenticate(request, username = username, password = password)
-        #if user is not None:
-        #    login(request, user)
-        #    return redirect('index')
-        #else:
-        #    print(user, username, password)
-        #    return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+
     return render(request, 'account/signin.html') 
 
 
@@ -80,3 +76,7 @@ def activate(request, uidb64, token):
         return redirect("index")
     return 
 # Create your views here.
+
+def signout(request):
+    logout(request)
+    return redirect('signin')
