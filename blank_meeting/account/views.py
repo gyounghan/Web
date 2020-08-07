@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
+from .models import Account
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import HttpResponse
-
 from django.contrib.auth import login, logout, authenticate
 
 
@@ -13,23 +13,27 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 from .tokens import account_activation_token
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 def index(request):
 #    return HttpResponse("Hello, world, You're at the account index.")
     return render(request, 'account/index.html')
 
 # 로그인 함수
+@csrf_exempt
 def signin(request):
     if request.method == 'POST':
         try :
             username = request.POST['username']
             password = request.POST['password']
-        
             user = User.objects.get(username=username)
             if user.check_password(password):
                 if user.is_active == False:
-                    return render(request, 'account/signup.html')
+                    return render(request, 'account/signin.html')
                 login(request, user)
+                print("password : " + password + " " + "user.password : "+ str(user.password))
+                print("user.is_active : " + str(user.is_active))
                 return redirect('index')
             else:
                 return render(request, 'account/signin_fail.html') 
@@ -42,9 +46,15 @@ def signin(request):
 def signup(request):
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
+
+            user = Account.objects.create(userid=request.POST['username'], password = request.POST['password1'], email_address = request.POST['email'])
+            user.is_active = False
+            user.save()
+            
             user = User.objects.create_user(username=request.POST['username'], password = request.POST['password1'])
             user.is_active = False
             user.save()
+            
             current_site = get_current_site(request)
             message = render_to_string('account/activation_email.html', {
                 'user': user,
