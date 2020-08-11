@@ -15,11 +15,16 @@ from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 from .tokens import account_activation_token
 from django.views.decorators.csrf import csrf_exempt
-
+from django.shortcuts import render, get_object_or_404
 # Create your views here.
 def index(request):
 #    return HttpResponse("Hello, world, You're at the account index.")
     return render(request, 'account/index.html')
+
+def profile(request):
+#    return HttpResponse("Hello, world, You're at the account index.")
+    profile_user = get_object_or_404(User, pk=request.user.pk)
+    return render(request, 'account/profile.html', {'profile_user': profile_user})
 
 # 로그인 함수
 @csrf_exempt
