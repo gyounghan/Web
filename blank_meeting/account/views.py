@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Account
+from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # SMTP 관련 인증
 from django.contrib.sites.shortcuts import get_current_site
@@ -32,8 +33,6 @@ def signin(request):
                 if user.is_active == False:
                     return render(request, 'account/signin.html')
                 login(request, user)
-                print("password : " + password + " " + "user.password : "+ str(user.password))
-                print("user.is_active : " + str(user.is_active))
                 return redirect('index')
             else:
                 return render(request, 'account/signin_fail.html') 
@@ -47,14 +46,15 @@ def signup(request):
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
 
-            user = Account.objects.create(userid=request.POST['username'], password = request.POST['password1'], email_address = request.POST['email'])
-            user.is_active = False
-            user.save()
-            
             user = User.objects.create_user(username=request.POST['username'], password = request.POST['password1'])
             user.is_active = False
             user.save()
-            
+
+            profile = user.profile
+            profile.user = user
+            profile.email_address = request.POST['email']
+            profile.save()
+
             current_site = get_current_site(request)
             message = render_to_string('account/activation_email.html', {
                 'user': user,
@@ -69,6 +69,7 @@ def signup(request):
             return redirect('index')
 
     return render(request, 'account/signup.html')
+
 
 # 계정 활성화 함수(토큰을 통해 인증)
 def activate(request, uidb64, token):
